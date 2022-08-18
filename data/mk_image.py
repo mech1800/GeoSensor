@@ -7,15 +7,8 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 データセットをイメージ化するプログラム
 '''
 
-# datasetをloadする
-pre_geometry_dataset = np.load('dataset/pre_geometry.npy')
-geometry_dataset = np.load('dataset/geometry.npy')
-contact_dataset = np.load('dataset/contact.npy')
-stress_dataset = np.load('dataset/stress.npy')
-force_dataset = np.load('dataset/force.npy')
 
-
-def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset,label,max):
+def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset,label,max,number):
 
     # データ数を6の倍数にするために最後に0行列を複数個加える
     zeros = np.zeros_like((pre_geometry_dataset[0]))
@@ -194,7 +187,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
             ax19.set_ylabel('stress')
 
             # 画像として保存
-            fig.savefig('image/stress/table_'+str(i+1)+'.png')
+            fig.savefig('image/stress/'+str(number)+'/table_'+str(i+1)+'.png')
 
         # force_dataset用
         if label == 'force':
@@ -267,13 +260,22 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
             ax19.set_ylabel('force')
 
             # 画像として保存
-            fig.savefig('image/force/table_'+str(i+1)+'.png')
+            fig.savefig('image/force/'+str(number)+'/table_'+str(i+1)+'.png')
 
 
 # main
 label = input('label means stress or force?')
 
 # 分布荷重の最大値(μN)
-max = 10
+max = 30
 
-mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset,label,max)
+for number in [0,1,2]:
+
+    # datasetをloadする
+    pre_geometry_dataset = np.load('dataset/'+str(number)+'/pre_geometry.npy')
+    geometry_dataset = np.load('dataset/'+str(number)+'/geometry.npy')
+    contact_dataset = np.load('dataset/'+str(number)+'/contact.npy')
+    stress_dataset = np.load('dataset/'+str(number)+'/stress.npy')
+    force_dataset = np.load('dataset/'+str(number)+'/force.npy')
+
+    mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset,label,max,number)

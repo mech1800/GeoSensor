@@ -50,19 +50,24 @@ def rotate_90_180_270(pre_geometry_dataset,geometry_dataset,contact_dataset,stre
     return pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset
 
 
-# original_datasetをloadする
-pre_geometry_dataset = np.load('original_dataset/pre_geometry.npy')
-geometry_dataset = np.load('original_dataset/geometry.npy')
-contact_dataset = np.load('original_dataset/contact.npy')
-stress_dataset = np.load('original_dataset/stress.npy')
-force_dataset = np.load('original_dataset/force.npy')
+# main部分
 
-# 90°ずつ回転させたデータをdetasetに追加
-pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset = rotate_90_180_270(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset)
+# 0～9まで
+for number in range(10):
 
-# datasetを更新する
-np.save('dataset/pre_geometry',pre_geometry_dataset)
-np.save('dataset/geometry',geometry_dataset)
-np.save('dataset/contact',contact_dataset)
-np.save('dataset/stress',stress_dataset)
-np.save('dataset/force',force_dataset)
+    # original_datasetをloadする
+    pre_geometry_dataset = np.load('original_dataset/'+str(number)+'/pre_geometry.npy')
+    geometry_dataset = np.load('original_dataset/'+str(number)+'/geometry.npy')
+    contact_dataset = np.load('original_dataset/'+str(number)+'/contact.npy')
+    stress_dataset = np.load('original_dataset/'+str(number)+'/stress.npy')
+    force_dataset = np.load('original_dataset/'+str(number)+'/force.npy')
+
+    # 90°ずつ回転させたデータをdetasetに追加
+    pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset = rotate_90_180_270(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_dataset,force_dataset)
+
+    # datasetを更新する
+    np.save('dataset/'+str(number)+'/pre_geometry', pre_geometry_dataset)
+    np.save('dataset/'+str(number)+'/geometry', geometry_dataset)
+    np.save('dataset/'+str(number)+'/contact', contact_dataset)
+    np.save('dataset/'+str(number)+'/stress', stress_dataset)
+    np.save('dataset/'+str(number)+'/force', force_dataset)

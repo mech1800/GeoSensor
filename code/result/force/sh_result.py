@@ -22,11 +22,16 @@ tr_label = torch.from_numpy((np.load('./tr_label.npy')).astype(np.float32)).to(d
 va_data = torch.from_numpy((np.load('./va_data.npy')).astype(np.float32)).to(device)
 va_label = torch.from_numpy((np.load('./va_label.npy')).astype(np.float32)).to(device)
 
-tr_label = tr_label.detach().cpu().numpy()
-va_label = va_label.detach().cpu().numpy()
-
+# dataを学習済みのモデルに入力する
 tr_output = model(tr_data).detach().cpu().numpy()
 va_output = model(va_data).detach().cpu().numpy()
+
+# matplotlibで扱うためにnumpyに戻す
+tr_data = tr_data.detach().cpu().numpy()
+tr_label = tr_label.detach().cpu().numpy()
+va_data = va_data.detach().cpu().numpy()
+va_label = va_label.detach().cpu().numpy()
+
 
 # モデルの出力(output)とlabelの比較画像を6×10枚保存する
 def mk_image(output, label, mode, max):
@@ -44,12 +49,29 @@ def mk_image(output, label, mode, max):
         ax5 = fig.add_subplot(2, 6, 5)
         ax6 = fig.add_subplot(2, 6, 6)
 
-        im1 = ax1.imshow(output[i*6][0], cmap=cm.jet, vmin=0, vmax=max)
-        im2 = ax2.imshow(output[i*6+1][0], cmap=cm.jet, vmin=0, vmax=max)
-        im3 = ax3.imshow(output[i*6+2][0], cmap=cm.jet, vmin=0, vmax=max)
-        im4 = ax4.imshow(output[i*6+3][0], cmap=cm.jet, vmin=0, vmax=max)
-        im5 = ax5.imshow(output[i*6+4][0], cmap=cm.jet, vmin=0, vmax=max)
-        im6 = ax6.imshow(output[i*6+5][0], cmap=cm.jet, vmin=0, vmax=max)
+
+        if mode == 'tr':
+            im1 = ax1.imshow(tr_data[i*6][1], cmap='gray', vmin=0, vmax=1)
+            im2 = ax2.imshow(tr_data[i*6+1][1], cmap='gray', vmin=0, vmax=1)
+            im3 = ax3.imshow(tr_data[i*6+2][1], cmap='gray', vmin=0, vmax=1)
+            im4 = ax4.imshow(tr_data[i*6+3][1], cmap='gray', vmin=0, vmax=1)
+            im5 = ax5.imshow(tr_data[i*6+4][1], cmap='gray', vmin=0, vmax=1)
+            im6 = ax6.imshow(tr_data[i*6+5][1], cmap='gray', vmin=0, vmax=1)
+
+        if mode == 'va':
+            im1 = ax1.imshow(va_data[i*6][1], cmap='gray', vmin=0, vmax=1)
+            im2 = ax2.imshow(va_data[i*6+1][1], cmap='gray', vmin=0, vmax=1)
+            im3 = ax3.imshow(va_data[i*6+2][1], cmap='gray', vmin=0, vmax=1)
+            im4 = ax4.imshow(va_data[i*6+3][1], cmap='gray', vmin=0, vmax=1)
+            im5 = ax5.imshow(va_data[i*6+4][1], cmap='gray', vmin=0, vmax=1)
+            im6 = ax6.imshow(va_data[i*6+5][1], cmap='gray', vmin=0, vmax=1)
+
+        im1 = ax1.imshow(output[i*6][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im2 = ax2.imshow(output[i*6+1][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im3 = ax3.imshow(output[i*6+2][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im4 = ax4.imshow(output[i*6+3][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im5 = ax5.imshow(output[i*6+4][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im6 = ax6.imshow(output[i*6+5][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
 
 
         divider = make_axes_locatable(ax1)
@@ -104,6 +126,7 @@ def mk_image(output, label, mode, max):
 
         ax1.set_ylabel('output')
 
+
         # label用
         ax7 = fig.add_subplot(2, 6, 7)
         ax8 = fig.add_subplot(2, 6, 8)
@@ -112,12 +135,29 @@ def mk_image(output, label, mode, max):
         ax11 = fig.add_subplot(2, 6, 11)
         ax12 = fig.add_subplot(2, 6, 12)
 
-        im7 = ax7.imshow(label[i*6][0], cmap=cm.jet, vmin=0, vmax=max)
-        im8 = ax8.imshow(label[i*6+1][0], cmap=cm.jet, vmin=0, vmax=max)
-        im9 = ax9.imshow(label[i*6+2][0], cmap=cm.jet, vmin=0, vmax=max)
-        im10 = ax10.imshow(label[i*6+3][0], cmap=cm.jet, vmin=0, vmax=max)
-        im11 = ax11.imshow(label[i*6+4][0], cmap=cm.jet, vmin=0, vmax=max)
-        im12 = ax12.imshow(label[i*6+5][0], cmap=cm.jet, vmin=0, vmax=max)
+
+        if mode == 'tr':
+            im7 = ax7.imshow(tr_data[i*6][1], cmap='gray', vmin=0, vmax=1)
+            im8 = ax8.imshow(tr_data[i*6+1][1], cmap='gray', vmin=0, vmax=1)
+            im9 = ax9.imshow(tr_data[i*6+2][1], cmap='gray', vmin=0, vmax=1)
+            im10 = ax10.imshow(tr_data[i*6+3][1], cmap='gray', vmin=0, vmax=1)
+            im11 = ax11.imshow(tr_data[i*6+4][1], cmap='gray', vmin=0, vmax=1)
+            im12 = ax12.imshow(tr_data[i*6+5][1], cmap='gray', vmin=0, vmax=1)
+
+        if mode == 'va':
+            im7 = ax7.imshow(va_data[i*6][1], cmap='gray', vmin=0, vmax=1)
+            im8 = ax8.imshow(va_data[i*6+1][1], cmap='gray', vmin=0, vmax=1)
+            im9 = ax9.imshow(va_data[i*6+2][1], cmap='gray', vmin=0, vmax=1)
+            im10 = ax10.imshow(va_data[i*6+3][1], cmap='gray', vmin=0, vmax=1)
+            im11 = ax11.imshow(va_data[i*6+4][1], cmap='gray', vmin=0, vmax=1)
+            im12 = ax12.imshow(va_data[i*6+5][1], cmap='gray', vmin=0, vmax=1)
+
+        im7 = ax7.imshow(label[i*6][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im8 = ax8.imshow(label[i*6+1][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im9 = ax9.imshow(label[i*6+2][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im10 = ax10.imshow(label[i*6+3][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im11 = ax11.imshow(label[i*6+4][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
+        im12 = ax12.imshow(label[i*6+5][0], cmap=cm.jet, alpha=0.6, vmin=0, vmax=max)
 
 
         divider = make_axes_locatable(ax7)
