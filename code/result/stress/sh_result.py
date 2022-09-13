@@ -22,11 +22,13 @@ tr_label = torch.from_numpy((np.load('./tr_label.npy')).astype(np.float32)).to(d
 va_data = torch.from_numpy((np.load('./va_data.npy')).astype(np.float32)).to(device)
 va_label = torch.from_numpy((np.load('./va_label.npy')).astype(np.float32)).to(device)
 
-tr_label = tr_label.detach().cpu().numpy()
-va_label = va_label.detach().cpu().numpy()
+# outputとlabelを用意する(メモリの関係で6×10枚に絞っている)
+tr_label = tr_label[:60].detach().cpu().numpy()
+va_label = va_label[:60].detach().cpu().numpy()
 
-tr_output = model(tr_data).detach().cpu().numpy()
-va_output = model(va_data).detach().cpu().numpy()
+tr_output = model(tr_data[:60]).detach().cpu().numpy()
+va_output = model(va_data[:60]).detach().cpu().numpy()
+
 
 # モデルの出力(output)とlabelの比較画像を6×10枚保存する
 def mk_image(output, label, mode):

@@ -55,6 +55,8 @@ def rotate_90_180_270(pre_geometry_dataset,geometry_dataset,contact_dataset,stre
 # 0～9まで
 for number in range(10):
 
+    print(number)
+
     # original_datasetをloadする
     pre_geometry_dataset = np.load('original_dataset/'+str(number)+'/pre_geometry.npy')
     geometry_dataset = np.load('original_dataset/'+str(number)+'/geometry.npy')

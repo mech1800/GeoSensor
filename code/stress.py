@@ -14,23 +14,53 @@ import matplotlib.cm as cm
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # パラメータ
-batchsize = 10
+batchsize = 32
 lr = 0.001
 epochs = 100
 
 
-# datasetをloadする
-pre_geometry_dataset = np.load('../data/dataset/pre_geometry.npy')
-geometry_dataset = np.load('../data/dataset/geometry.npy')
-contact_dataset = np.load('../data/dataset/contact.npy')
-stress_dataset = np.load('../data/dataset/stress.npy')
+# 0~9のdatasetをloadする
+pre_geometry_dataset = np.empty([0,64,64])
+geometry_dataset = np.empty([0,64,64])
+contact_dataset = np.empty([0,64,64])
+stress_dataset = np.empty([0,64,64])
 
-# dataを[1280,3,32,32],labelを[1280,1,32,32]に変形
+for i in range(10):
+    pre_geometry_dataset_new = np.load('../data/dataset/'+str(i)+'/pre_geometry.npy')
+    geometry_dataset_new = np.load('../data/dataset/'+str(i)+'/geometry.npy')
+    contact_dataset_new = np.load('../data/dataset/'+str(i)+'/contact.npy')
+    stress_dataset_new = np.load('../data/dataset/'+str(i)+'/stress.npy')
+
+    pre_geometry_dataset = np.concatenate([pre_geometry_dataset, pre_geometry_dataset_new],0)
+    geometry_dataset = np.concatenate([geometry_dataset, geometry_dataset_new],0)
+    contact_dataset = np.concatenate([contact_dataset, contact_dataset_new],0)
+    stress_dataset = np.concatenate([stress_dataset, stress_dataset_new],0)
+
+# dataを[12800(=1280×10),3,64,64],labelを[12800(=1280×10),1,64,64]に変形
 data = np.stack([pre_geometry_dataset, geometry_dataset, contact_dataset], axis=1)
 label = np.reshape(stress_dataset, [stress_dataset.shape[0], -1, stress_dataset.shape[1], stress_dataset.shape[2]])
 
-# 9:1にバリデーションする
+
+# 前から順番に9:1にバリデーション → シャッフル
+tr_data = data[0:int(len(data)*0.9)]
+tr_label = label[0:int(len(data)*0.9)]
+va_data = data[int(len(data)*0.9):]
+va_label = label[int(len(data)*0.9):]
+
+p = np.random.permutation(len(tr_data))
+tr_data = tr_data[p]
+tr_label = tr_label[p]
+
+p = np.random.permutation(len(va_data))
+va_data = va_data[p]
+va_label = va_label[p]
+
+
+'''
+# シャッフル → 9:1にバリデーション
 tr_data, va_data, tr_label, va_label = train_test_split(data, label, test_size=0.1, random_state=1, shuffle=True)
+'''
+
 
 # resultに保存する
 np.save('result/stress/tr_data', tr_data)

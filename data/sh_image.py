@@ -4,7 +4,7 @@ import matplotlib.cm as cm
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 # 0～9まで
-for number in [0,1,2]:
+for number in [0,1,2,3,4,5,6,7,8,9]:
     # datasetをloadする
     pre_geometry_dataset = np.load('dataset/'+str(number)+'/pre_geometry.npy')
     geometry_dataset = np.load('dataset/'+str(number)+'/geometry.npy')

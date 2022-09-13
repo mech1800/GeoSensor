@@ -267,9 +267,11 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
 label = input('label means stress or force?')
 
 # 分布荷重の最大値(μN)
-max = 30
+max = 40
 
-for number in [0,1,2]:
+for number in [0,1,2,3,4,5,6,7,8,9]:
+
+    print(number)
 
     # datasetをloadする
     pre_geometry_dataset = np.load('dataset/'+str(number)+'/pre_geometry.npy')
