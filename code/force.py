@@ -42,7 +42,7 @@ data = np.stack([pre_geometry_dataset, geometry_dataset, contact_dataset], axis=
 label = np.reshape(force_dataset, [force_dataset.shape[0], -1, force_dataset.shape[1], force_dataset.shape[2]])
 
 
-# 前から順番に9:1にバリデーション → シャッフル
+# テストデータを9にする(前から順番に9:1にバリデーション → シャッフル)
 tr_data = data[0:int(len(data)*0.9)]
 tr_label = label[0:int(len(data)*0.9)]
 va_data = data[int(len(data)*0.9):]
@@ -56,6 +56,22 @@ p = np.random.permutation(len(va_data))
 va_data = va_data[p]
 va_label = va_label[p]
 
+
+'''
+# テストデータを8にする
+tr_data = np.concatenate([data[:int(len(data)*0.8)],data[int(len(data)*0.9):]])
+tr_label = np.concatenate([label[:int(len(data)*0.8)],label[int(len(data)*0.9):]])
+va_data = data[int(len(data)*0.8):int(len(data)*0.9)]
+va_label = label[int(len(data)*0.8):int(len(data)*0.9)]
+
+p = np.random.permutation(len(tr_data))
+tr_data = tr_data[p]
+tr_label = tr_label[p]
+
+p = np.random.permutation(len(va_data))
+va_data = va_data[p]
+va_label = va_label[p]
+'''
 
 '''
 # シャッフル → 9:1にバリデーション

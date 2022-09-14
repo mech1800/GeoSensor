@@ -46,12 +46,12 @@ def mk_image(output, label, mode):
         ax5 = fig.add_subplot(2, 6, 5)
         ax6 = fig.add_subplot(2, 6, 6)
 
-        im1 = ax1.imshow(output[i*6][0], cmap=cm.jet)
-        im2 = ax2.imshow(output[i*6+1][0], cmap=cm.jet)
-        im3 = ax3.imshow(output[i*6+2][0], cmap=cm.jet)
-        im4 = ax4.imshow(output[i*6+3][0], cmap=cm.jet)
-        im5 = ax5.imshow(output[i*6+4][0], cmap=cm.jet)
-        im6 = ax6.imshow(output[i*6+5][0], cmap=cm.jet)
+        im1 = ax1.imshow(output[i*6][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6][0].max(),label[i*6][0].max()))
+        im2 = ax2.imshow(output[i*6+1][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+1][0].max(),label[i*6+1][0].max()))
+        im3 = ax3.imshow(output[i*6+2][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+2][0].max(),label[i*6+2][0].max()))
+        im4 = ax4.imshow(output[i*6+3][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+3][0].max(),label[i*6+3][0].max()))
+        im5 = ax5.imshow(output[i*6+4][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+4][0].max(),label[i*6+4][0].max()))
+        im6 = ax6.imshow(output[i*6+5][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+5][0].max(),label[i*6+5][0].max()))
 
 
         divider = make_axes_locatable(ax1)
@@ -108,12 +108,12 @@ def mk_image(output, label, mode):
         ax11 = fig.add_subplot(2, 6, 11)
         ax12 = fig.add_subplot(2, 6, 12)
 
-        im7 = ax7.imshow(label[i*6][0], cmap=cm.jet)
-        im8 = ax8.imshow(label[i*6+1][0], cmap=cm.jet)
-        im9 = ax9.imshow(label[i*6+2][0], cmap=cm.jet)
-        im10 = ax10.imshow(label[i*6+3][0], cmap=cm.jet)
-        im11 = ax11.imshow(label[i*6+4][0], cmap=cm.jet)
-        im12 = ax12.imshow(label[i*6+5][0], cmap=cm.jet)
+        im7 = ax7.imshow(label[i*6][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6][0].max(),label[i*6][0].max()))
+        im8 = ax8.imshow(label[i*6+1][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+1][0].max(),label[i*6+1][0].max()))
+        im9 = ax9.imshow(label[i*6+2][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+2][0].max(),label[i*6+2][0].max()))
+        im10 = ax10.imshow(label[i*6+3][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+3][0].max(),label[i*6+3][0].max()))
+        im11 = ax11.imshow(label[i*6+4][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+4][0].max(),label[i*6+4][0].max()))
+        im12 = ax12.imshow(label[i*6+5][0], cmap=cm.jet, vmin=0, vmax=max(output[i*6+5][0].max(),label[i*6+5][0].max()))
 
 
         divider = make_axes_locatable(ax7)
