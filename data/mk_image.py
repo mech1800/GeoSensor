@@ -60,7 +60,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
         ax5.set_title(str(i*6+5))
         ax6.set_title(str(i*6+6))
 
-        ax1.set_ylabel('pre_geometry')
+        ax1.set_ylabel('pre_geometry', fontsize=8)
 
         # geometry_dataset用
         ax7 = fig.add_subplot(4,6,7)
@@ -90,7 +90,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
         ax12.set_xticks([])
         ax12.set_yticks([])
 
-        ax7.set_ylabel('geometry')
+        ax7.set_ylabel('geometry', fontsize=8)
 
         # contact_dataset用
         ax13 = fig.add_subplot(4,6,13)
@@ -120,7 +120,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
         ax18.set_xticks([])
         ax18.set_yticks([])
 
-        ax13.set_ylabel('contact')
+        ax13.set_ylabel('contact', fontsize=8)
 
         # stress_dataset用
         if label == 'stress':
@@ -184,7 +184,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
             ax24.set_xticks([])
             ax24.set_yticks([])
 
-            ax19.set_ylabel('stress')
+            ax19.set_ylabel('stress', fontsize=8)
 
             # 画像として保存
             fig.savefig('image/stress/'+str(number)+'/table_'+str(i+1)+'.png')
@@ -257,7 +257,7 @@ def mk_image(pre_geometry_dataset,geometry_dataset,contact_dataset,stress_datase
             ax24.set_xticks([])
             ax24.set_yticks([])
 
-            ax19.set_ylabel('force')
+            ax19.set_ylabel('force', fontsize=8)
 
             # 画像として保存
             fig.savefig('image/force/'+str(number)+'/table_'+str(i+1)+'.png')
